@@ -1,0 +1,77 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.novoda:bintray-release:0.8.0'
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+}
+
+
+tasks.withType(Javadoc) {
+    options.addStringOption('Xdoclint:none', '-quiet')
+    options.addStringOption('encoding', 'UTF-8')
+    options.addStringOption('charSet', 'UTF-8')
+}
+
+
+
+android {
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+
+            jniLibs.srcDirs = ['libs/']
+
+            java.srcDirs=['src/'
+//                          , '../conscrypt/'
+//                          , '../compat/'
+            ]
+        }
+        androidTest.java.srcDirs=['test/src/']
+        androidTest.res.srcDirs=['test/res/']
+        androidTest.assets.srcDirs=['test/assets/']
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    defaultConfig {
+        targetSdkVersion 26
+        minSdkVersion 9
+        versionCode 1
+        versionName "1.0"
+    }
+
+    compileSdkVersion project.hasProperty('global_compileSdkVersion') ? global_compileSdkVersion : 25
+    buildToolsVersion project.hasProperty('global_buildToolsVersion') ? global_buildToolsVersion : '27.0.3'
+    buildToolsVersion '27.0.3'
+
+
+}
+
+// upload to maven task
+if (System.getenv().I_AM_KOUSH == 'true') {
+  apply from: 'https://raw.githubusercontent.com/koush/mvn-repo/master/maven.gradle'
+}
+
+publish {
+    userOrg = 'carozhu' //注册Bintray的用户名
+    groupId = 'com.carozhu'//组ID
+    artifactId = 'zbarLibrary'//组件标示 即Library name
+    publishVersion = '1.0.0'//版本
+    desc = 'use zbarLibrary for checking qrcode enter'
+    website = 'https://github.com/carozhu/zbarLibrary.git'//如果有上传GitHub可以填写URL
+
+}
