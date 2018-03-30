@@ -33,10 +33,7 @@ android {
 
             jniLibs.srcDirs = ['libs/']
 
-            java.srcDirs=['src/'
-//                          , '../conscrypt/'
-//                          , '../compat/'
-            ]
+            java.srcDirs=['src/']
         }
         androidTest.java.srcDirs=['test/src/']
         androidTest.res.srcDirs=['test/res/']
@@ -69,9 +66,9 @@ if (System.getenv().I_AM_KOUSH == 'true') {
 publish {
     userOrg = 'carozhu' //注册Bintray的用户名
     groupId = 'com.carozhu'//组ID
-    artifactId = 'zbarLibrary'//组件标示 即Library name
-    publishVersion = '1.0.0'//版本
-    desc = 'use zbarLibrary for checking qrcode enter'
-    website = 'https://github.com/carozhu/zbarLibrary.git'//如果有上传GitHub可以填写URL
+    artifactId = 'AndroidAsync'//组件标示 即Library name
+    publishVersion = '1.0'//版本
+    desc = 'AndroidAsync http'
+    website = 'https://github.com/carozhu/AndroidAsync.git'//如果有上传GitHub可以填写URL
 
 }
